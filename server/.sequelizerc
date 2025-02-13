@@ -1,0 +1,7 @@
+const path = require("path");
+require("dotenv").config({ path: ".env" });
+
+module.exports = {
+  "migrations-path": path.resolve("src/providers/database", "migrations"),
+  config: path.resolve("src/providers/database", "config.js"),
+};

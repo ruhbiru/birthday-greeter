@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  db:
+    platform: linux/x86_64
+    image: mysql:8.0.21
+    container_name: test-db
+    restart: always
+    environment:
+      TZ: "UTC"
+      MYSQL_DATABASE: "assessment-test"
+      MYSQL_USER: "testDbUser"
+      MYSQL_PASSWORD: "test2@25"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "3389:3306"
+    volumes:
+      - testDbData:/var/lib/mysql
+  redis:
+    image: redis:6.0.6
+    container_name: test-redis
+    restart: always
+    environment:
+      REDIS_AUTH: "sb6CwUhNey4Y23cV8CA49GcwNnKJamGHI8n"
+    ports:
+      - "6389:6379"
+    volumes:
+      - testRedisData:/data
+    command:
+      [
+        "bash",
+        "-c",
+        ' docker-entrypoint.sh --requirepass "$$(echo $$REDIS_AUTH)" ',
+      ]
+volumes:
+  testDbData:
+  testRedisData:
